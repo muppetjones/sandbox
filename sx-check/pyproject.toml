@@ -123,3 +123,11 @@ atomic = true
 line_length = 83
 float_to_top = true
 skip_glob = "**/__init__.py"
+
+[tool.ruff]
+ignore = []
+line-length = 88
+select = ["E","F","W"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
