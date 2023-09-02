@@ -40,6 +40,7 @@ jobs:
     needs: change-matrix
     if: ${{ needs.change-matrix.outputs.packages != '[]' && needs.change-matrix.outputs.packages != '' }}
     strategy:
+      fail-fast: false
       matrix:
         # Parse JSON array containing names of all filters matching any of changed files
         package: ${{ fromJSON(needs.change-matrix.outputs.packages) }}

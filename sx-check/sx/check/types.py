@@ -29,8 +29,20 @@ def _(value: Sequence) -> bool:
 
 
 if __name__ == "__main__":
+    import getpass
     import os
 
-    print(f"Hello, {os.getlogin()}!", flush=True)
+    opts = [
+        os.getlogin,
+        getpass.getuser,
+        lambda: "anonymous",
+    ]
+    for fn in opts:
+        try:
+            user = fn()
+        except Exception:
+            continue  # not available for some reason
+
+    print(f"Hello, {user}!", flush=True)
 
 # __END__
