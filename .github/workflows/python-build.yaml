@@ -53,8 +53,8 @@ jobs:
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
       with:
-        name: pytest-results-${{ matrix.python-version }}
-        path: junit/test-results-${{ matrix.python-version }}.xml
+        name: ${{ inputs.package }}-${{ matrix.python-version }}.xml
+        path: junit/${{ inputs.package }}-${{ matrix.python-version }}.xml
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
   build:
@@ -65,9 +65,12 @@ jobs:
         working-directory: ./${{ inputs.package }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-tags: true
-          fetch-depth: 0
+        # for some reason, neither option works
+        # with:
+        #   fetch-tags: true
+        #   fetch-depth: 0
+      - name: Get tags
+        run: git fetch --tags origin
       - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
