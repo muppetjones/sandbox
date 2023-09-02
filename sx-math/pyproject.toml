@@ -21,9 +21,7 @@ classifiers = [
 "Documentation" = "https://muppetjones.github.io/sandbox/sx-math"
 
 
-[project.optional-dependencies]
-
-
+[tool.pdm]
 [tool.pdm.dev-dependencies]
 ipy = [
     "ipykernel>=6.16.2",
@@ -41,31 +39,10 @@ test = [
 lint = [
     "flake8>=3.8",
     "black>=20.8b1",
+    "ruff>=0.0.287",
 ]
 
 
-[build-system]
-requires = ["hatchling", "hatch-vcs"]
-build-backend = "hatchling.build"
-
-
-[tool.hatch]
-[tool.hatch.build]
-exclude = ["tests", "notebooks"]
-include = ["sx"]
-
-# NOTE: This doesn't seem reliable
-[tool.hatch.version]
-source = "vcs"
-tag-pattern = '''^sx-math-(?P<version>[vV]?\d+(?:\.\d+){0,2}[^\+]*)(?:\+.*)?$'''
-fallback-version = "0.1.2"
-[tool.hatch.version.raw-options]
-root = ".."
-local_scheme = "no-local-version"
-[tool.hatch.build.hooks.vcs]
-version-file = "sx/math/_version.py"
-
-[tool.pdm]
 [tool.pdm.scripts]
 init-hooks = "pre-commit install"
 rm-hooks = "pre-commit uninstall"
@@ -75,6 +52,25 @@ clean-dry = "find . -type f -name '*.py[co]' -o -type d -name __pycache__ -o -ty
 test = "pytest -vvv"
 utest = "python -m unittest discover -vv -t . -s tests.sx_math"
 
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+exclude = ["tests", "notebooks"]
+include = ["sx"]
+
+# NOTE: This doesn't seem reliable
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+root = ".."
+local_scheme = "no-local-version"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "sx/math/_version.py"
 
 [tool.coverage.run]
 omit = [
@@ -123,3 +119,11 @@ atomic = true
 line_length = 83
 float_to_top = true
 skip_glob = "**/__init__.py"
+
+[tool.ruff]
+ignore = []
+line-length = 88
+select = ["E","F","W"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
