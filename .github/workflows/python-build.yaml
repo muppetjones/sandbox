@@ -53,8 +53,9 @@ jobs:
     - name: Upload pytest test results
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ inputs.package }}-${{ matrix.python-version }}.xml
-        path: junit/${{ inputs.package }}-${{ matrix.python-version }}.xml
+        name: pytest-results-${{ inputs.package }}-${{ matrix.python-version }}.xml
+        # does NOT use working-directory
+        path: ${{ inputs.package }}/junit/${{ inputs.package }}-${{ matrix.python-version }}.xml
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
   build:
