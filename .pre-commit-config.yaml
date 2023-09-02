@@ -20,3 +20,4 @@ repos:
     rev: 2.4.5
     hooks:
       - id: pdm-lock-check
+        args: ["--project=sx-check", "--project=sx-math"]
