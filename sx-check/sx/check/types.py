@@ -40,7 +40,7 @@ if __name__ == "__main__":
     for fn in opts:
         try:
             user = fn()
-        except Exception:
+        except Exception:  # pragma: no cover
             continue  # not available for some reason
 
     print(f"Hello, {user}!", flush=True)

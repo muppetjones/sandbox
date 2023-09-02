@@ -88,7 +88,7 @@ minversion = "7.0"
 addopts = '''
 --import-mode=importlib -ra
 -vvv
---cov=sx.math
+--cov=sx
 '''
 pythonpath = [
     "."

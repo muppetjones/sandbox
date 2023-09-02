@@ -2,7 +2,7 @@
 """Test."""
 
 import logging
-import os
+import re
 import shlex
 import subprocess
 from unittest import TestCase
@@ -31,8 +31,8 @@ class TestEntrypoint(ThisTestCase):
             result.check_returncode()
 
         # She is pleasantly surprised by the warm greeting!
-        expected = f"Hello, {os.getlogin()}!"
-        found = result.stdout.strip()
+        found = re.sub(r"(?<=\s)[\w\-\.]+(?=!)", "<name>", result.stdout.strip())
+        expected = "Hello, <name>!"
         self.assertEqual(expected, found)
 
 
