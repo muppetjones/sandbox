@@ -1,0 +1,17 @@
+[project]
+dependencies = []
+requires-python = ">=3.8"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "-e sx-check @ file:///${PROJECT_ROOT}/sx-check",
+    "-e sx-math @ file:///${PROJECT_ROOT}/sx-math",
+]
+
+[tool.pdm]
+[tool.pdm.scripts]
+init-hooks = "pre-commit install"
+rm-hooks = "pre-commit uninstall"
+lint = "ruff"
+clean = "find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete"
+clean-dry = "find . -type f -name '*.py[co]' -o -type d -name __pycache__ -o -type d -name .pytest_cache"

@@ -17,7 +17,7 @@ on:
           - sx-math
 jobs:
   test:
-    name: ${{ inputs.package }} - ${{ matrix.os }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
