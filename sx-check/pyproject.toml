@@ -66,6 +66,7 @@ include = ["sx"]
 # NOTE: This doesn't seem reliable
 [tool.hatch.version]
 source = "vcs"
+
 [tool.hatch.version.raw-options]
 root = ".."
 local_scheme = "no-local-version"
