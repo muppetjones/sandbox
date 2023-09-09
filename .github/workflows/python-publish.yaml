@@ -13,7 +13,6 @@ on:
         type: string
       pypi_url:
         description: 'PyPI URL'
-        required: true
         type: string
         default: https://test.pypi.org/legacy/
     secrets:
