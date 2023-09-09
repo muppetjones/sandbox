@@ -23,4 +23,6 @@ jobs:
     with:
       package: ${{ needs.parse-tag.outputs.package }}
       version: ${{ needs.parse-tag.outputs.version }}
+    secrets:
+      PYPI_API_TOKEN: ${{ secrets.TEST_PYPI_API_TOKEN }}
 
