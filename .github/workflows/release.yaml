@@ -1,0 +1,20 @@
+on:
+  push:
+    tags:
+      - 'sx-*'
+
+jobs:
+  publish-from-tag:
+    name: "Publish ${{ github.ref_name }}"
+    steps:
+      - name: "Parse package and version"
+        id: parse-tag
+        run: |
+          echo "PKG=$(echo ${{ github.ref_name }} | sed -e 's/-[0-9].*//')" >> "$GITHUB_OUTPUT"
+          echo "VER=$(echo ${{ github.ref_name }} | sed -e 's/[a-z\-]*-//')" >> "$GITHUB_OUTPUT"
+      - name: "Publish to PyPI"
+        uses: ./.github/workflows/python-publish.yaml
+        with:
+          package: ${{ steps.parse-tag.outputs.PKG }}
+          version: ${{ steps.parse-tag.outputs.VER }}
+

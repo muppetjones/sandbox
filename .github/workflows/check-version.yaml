@@ -1,0 +1,35 @@
+# TODO: Check that version has been bumped on release and hotfix branches
+# on:
+#   push:
+#     branches:
+#       - release/*
+#       - hotfix/*
+
+# jobs:
+#   change-matrix:
+#     runs-on: ubuntu-latest
+#     # Set job outputs to values from filter step
+#     outputs:
+#       packages: ${{ steps.filter.outputs.changes }}
+#     permissions:
+#       pull-requests: read
+#     steps:
+#     # For pull requests it's not necessary to checkout the code
+#       - uses: actions/checkout@v3
+#       - uses: dorny/paths-filter@v2
+#         id: filter
+#         with:
+#           # Use context to get the branch where commits were pushed.
+#           # If there is only one long-lived branch (e.g. master),
+#           # you can specify it directly.
+#           # If it's not configured, the repository default branch is used.
+#           base: ${{ github.ref }}
+#           filters: |
+#             sx-math:
+#               - "sx-math/**"
+#               - ".github/workflows/ci*.yaml"
+#               - ".github/workflows/python*.yaml"
+#             sx-check:
+#               - "sx-check/**"
+#               - ".github/workflows/ci*.yaml"
+#               - ".github/workflows/python*.yaml"

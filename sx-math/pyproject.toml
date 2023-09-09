@@ -52,48 +52,17 @@ clean-dry = "find . -type f -name '*.py[co]' -o -type d -name __pycache__ -o -ty
 test = "pytest -vvv"
 utest = "python -m unittest discover -vv -t . -s tests.sx_math"
 
-
-[build-system]
-requires = ["hatchling", "hatch-vcs"]
-build-backend = "hatchling.build"
-
 [tool.hatch.build]
 exclude = ["tests", "notebooks"]
 include = ["sx"]
 
-# NOTE: This doesn't seem reliable
 [tool.hatch.version]
-source = "vcs"
+path = "sx/math/__about__.py"
 
-[tool.hatch.version.raw-options]
-root = ".."
-local_scheme = "no-local-version"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.hatch.build.hooks.vcs]
-version-file = "sx/math/_version.py"
-
-[tool.coverage.run]
-omit = [
-    "**/__init__.py",
-    "**/_version.py"
-]
-
-[tool.coverage.report]
-show_missing = true
-
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = '''
---import-mode=importlib -ra
--vvv
---cov=sx.math
-'''
-pythonpath = [
-    "."
-]
-testpaths = [
-    "tests",
-]
 
 [tool.black]
 line-length = 83
@@ -113,12 +82,25 @@ exclude = '''
 )/
 '''
 
+[tool.coverage.run]
+omit = ["**/__init__.py", "**/__about__.py"]
+
+[tool.coverage.report]
+show_missing = true
+
 [tool.isort]
 profile = "black"
 atomic = true
 line_length = 83
 float_to_top = true
 skip_glob = "**/__init__.py"
+
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = '''-ra -vvv --import-mode=importlib --cov=sx'''
+pythonpath = ["."]
+testpaths = ["tests"]
 
 [tool.ruff]
 ignore = []

@@ -65,5 +65,20 @@ jobs:
         run: black ${{ needs.change-matrix.outputs.python_files }}
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "format: black and isort"
+          commit_message: "format-py: black and isort"
+  markdown:
+    needs: change-matrix
+    if: ${{ needs.change-matrix.outputs.markdown == 'true' }}
+    steps:
+      - uses: - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+      - name: npm
+        run: npm install markdownlint
+      - name: markdownlint
+        run: markdownlint --fix ${{ needs.change-matrix.outputs.markdown_files }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "format-md: markdownlint"
 
