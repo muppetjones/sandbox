@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Parse package and version"
-        id: parse-tag
+        id: parse
         run: |
           echo "PKG=$(echo ${{ github.ref_name }} | sed -e 's/-[0-9].*//')" >> "$GITHUB_OUTPUT"
           echo "VER=$(echo ${{ github.ref_name }} | sed -e 's/[a-z\-]*-//')" >> "$GITHUB_OUTPUT"
