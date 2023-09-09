@@ -4,8 +4,11 @@ on:
       - 'sx-*'
 
 jobs:
-  publish-from-tag:
-    name: "Publish ${{ github.ref_name }}"
+  parse-tag:
+    name: "Parse ${{ github.ref_name }}"
+    outputs:
+      package: ${{ steps.parse.outputs.PKG }}
+      version: ${{ steps.parse.outputs.VER }}
     runs-on: ubuntu-latest
     steps:
       - name: "Parse package and version"
@@ -13,9 +16,11 @@ jobs:
         run: |
           echo "PKG=$(echo ${{ github.ref_name }} | sed -e 's/-[0-9].*//')" >> "$GITHUB_OUTPUT"
           echo "VER=$(echo ${{ github.ref_name }} | sed -e 's/[a-z\-]*-//')" >> "$GITHUB_OUTPUT"
-      - name: "Publish to PyPI"
-        uses: ./.github/workflows/python-publish.yaml
-        with:
-          package: ${{ steps.parse-tag.outputs.PKG }}
-          version: ${{ steps.parse-tag.outputs.VER }}
+  publish:
+    - name: "${{ needs.parse-tag.outputs.package }}-${{ needs.parse-tag.outputs.version }}"
+      needs: parse-tag
+      uses: ./.github/workflows/python-publish.yaml
+      with:
+        package: ${{ needs.parse-tag.outputs.package }}
+        version: ${{ needs.parse-tag.outputs.version }}
 
