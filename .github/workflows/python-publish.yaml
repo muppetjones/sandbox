@@ -29,6 +29,7 @@ on:
 
 jobs:
   python-publish:
+    name: "Publish ${{ package }} ${{ version }}"
     runs-on: ubuntu-latest
     defaults:
       run:
