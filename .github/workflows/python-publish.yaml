@@ -8,11 +8,13 @@ on:
         required: true
         type: string
       version:
+        description: 'The project version'
         required: true
         type: string
       pypi_url:
         description: 'PyPI URL'
         required: true
+        type: string
         default: https://test.pypi.org/legacy/
     secrets:
       PYPI_API_TOKEN:
@@ -22,9 +24,15 @@ on:
       target:
         description: 'The target project'
         required: true
+        type: string
+      version:
+        description: 'The project version'
+        required: true
+        type: string
       pypi_url:
         description: 'PyPI URL'
         required: true
+        type: string
         default: https://test.pypi.org/legacy/
 
 jobs:
