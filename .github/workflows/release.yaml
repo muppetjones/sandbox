@@ -17,7 +17,7 @@ jobs:
           echo "PKG=$(echo ${{ github.ref_name }} | sed -e 's/-[0-9].*//')" >> "$GITHUB_OUTPUT"
           echo "VER=$(echo ${{ github.ref_name }} | sed -e 's/[a-z\-]*-//')" >> "$GITHUB_OUTPUT"
   publish:
-    - name: "${{ needs.parse-tag.outputs.package }}-${{ needs.parse-tag.outputs.version }}"
+    - name: "${{ needs.parse-tag.outputs.package }} ${{ needs.parse-tag.outputs.version }}"
       needs: parse-tag
       uses: ./.github/workflows/python-publish.yaml
       with:
